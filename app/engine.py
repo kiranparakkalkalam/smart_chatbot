@@ -14,17 +14,23 @@ from sklearn.metrics.pairwise import cosine_similarity
 warnings.filterwarnings("ignore")
 
 
-def prepare_corpus():
-    # Download punkt
-    nltk.download("punkt", quiet=True)
-    # Download as article from the URL
-    article = Article("https://www.mayoclinic.org/diseases-conditions/chronic-kidney-disease/symptoms-causes/syc-20354521")
+def download_diseases_and_tokenize(url):
+    article = Article(url.rstrip())
     article.download()
     article.parse()
     article.nlp()
-    # NLTK tokenizer
     corpus = article.text
-    sentence_list = nltk.sent_tokenize(corpus)
+    return nltk.sent_tokenize(corpus)
+
+def prepare_corpus(url_file):
+    # Download punkt
+    nltk.download("punkt", quiet=True)
+    # Download as article from the URL
+    urls = []
+    sentence_list = []
+    with open(url_file, "r") as ur:
+        for each_url in ur:
+            sentence_list.extend(download_diseases_and_tokenize(each_url))
     return sentence_list
 
 def greetings(text):
@@ -49,8 +55,9 @@ def index_sort(list_var):
                 list_index[j] = temp
     return list_index
 
-def bot_response(user_input):
-    sentence_list = prepare_corpus()
+def bot_response(user_input, url_file="url_links.txt"):
+    import pdb; pdb.set_trace()
+    sentence_list = prepare_corpus(url_file)
     user_input = user_input.lower()
     sentence_list.append(user_input)
     bot_response = ''
@@ -84,7 +91,5 @@ def ask_bot(user_input):
     else:
       if(greetings(user_input)!= None):
         return greetings(user_input)
-        #print("Doc Bot: "+greetings(user_input))
       else:
         return bot_response(user_input)
-        #print("Doc Bot: "+bot_response(user_input))
