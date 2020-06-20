@@ -56,7 +56,6 @@ def index_sort(list_var):
     return list_index
 
 def bot_response(user_input, url_file="url_links.txt"):
-    import pdb; pdb.set_trace()
     sentence_list = prepare_corpus(url_file)
     user_input = user_input.lower()
     sentence_list.append(user_input)
