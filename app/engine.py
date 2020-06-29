@@ -64,6 +64,7 @@ def bot_response(user_input, url_file="url_links.txt"):
     # Similarity between the user input and the sentence_list(the tokenized version of the website)
     similarity_scores = cosine_similarity(cm[-1], cm)
     similarity_scores_list = similarity_scores.flatten()
+    # Need to look for an efficient other sorts, maybe quicksort.
     index = index_sort(similarity_scores_list)
     # We are not interested in the last item on the sentence_list
     # ( the first one on the index_score as it is the
