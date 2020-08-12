@@ -10,3 +10,4 @@ Flask webapp prompts the user to enter the query. Based on the `cosine similarit
 
 * Add more pages to the corpus.
 * Make it more interactive, like a conversation.
+* Add more test cases
